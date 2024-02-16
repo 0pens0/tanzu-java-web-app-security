@@ -32,7 +32,7 @@ on:
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}              # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: ${{ vars.REGISTRY }}           # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: openso-sectest           # set this to your Amazon ECR repository name
   ECS_SERVICE: webapp-service                 # set this to your Amazon ECS service name
   ECS_CLUSTER: openso-ecs-cluster                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: .aws/task-definition.json # set this to the path to your Amazon ECS task definition
@@ -75,7 +75,7 @@ jobs:
          echo "IMG_NAME=$(echo ${ECR_REGISTRY})/openso-sectest" >> $GITHUB_ENV
          export RELATIVE_IMAGE=$(git rev-parse --short HEAD)$GITHUB_RUN_ID
          echo "relative_image=$RELATIVE_IMAGE" >> $GITHUB_OUTPUT
-         echo "image=$REGISTRY/$ECR_REPOSITORY:$RELATIVE_IMAGE" >> $GITHUB_OUTPUT
+         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$RELATIVE_IMAGE" >> $GITHUB_OUTPUT
 
     - name: Pack Remote Build
       uses: dfreilich/pack-action@v2.1.1
