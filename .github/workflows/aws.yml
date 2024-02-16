@@ -70,9 +70,9 @@ jobs:
     - name: Set App Name
       id: set-app-name
       env:
-        ECR_REGISTRY: ${{ vars.REGISTRY }}
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
-         echo "IMG_NAME=$(echo ${REGISTRY})/openso-sectest" >> $GITHUB_ENV
+         echo "IMG_NAME=$(echo ${ECR_REGISTRY})/openso-sectest" >> $GITHUB_ENV
          export RELATIVE_IMAGE=$(git rev-parse --short HEAD)$GITHUB_RUN_ID
          echo "relative_image=$RELATIVE_IMAGE" >> $GITHUB_OUTPUT
          echo "image=$REGISTRY/$ECR_REPOSITORY:$RELATIVE_IMAGE" >> $GITHUB_OUTPUT
